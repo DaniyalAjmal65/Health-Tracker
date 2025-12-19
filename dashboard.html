@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+
+<style>
+body{
+    font-family:Segoe UI, sans-serif;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+header{
+    background:rgba(0,0,0,0.5);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+.container{
+    max-width:1000px;
+    margin:40px auto;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+.card{
+    background:rgba(0,0,0,0.45);
+    border:2px solid #00e5ff;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+}
+.value{
+    font-size:26px;
+    color:#00e5ff;
+}
+.status{
+    font-size:14px;
+    opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Smart Health Tracker</h2>
+<nav>
+<a href="index.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="monitor.html">Monitor Vitals</a>
+</nav>
+</header>
+
+<div class="container">
+<h2>Health Dashboard</h2>
+
+<div class="grid">
+
+<!-- NAME -->
+<div class="card">
+<h3>Name</h3>
+<div class="value" id="pName">--</div>
+</div>
+
+<!-- BMI -->
+<div class="card">
+<h3>BMI</h3>
+<div class="value" id="bmi">--</div>
+<div class="status" id="bmiStatus"></div>
+</div>
+
+<!-- DESIRED CALORIES -->
+<div class="card">
+<h3>Desired Calories</h3>
+<div class="value" id="calories">--</div>
+<div class="status" id="calorieStatus"></div>
+</div>
+
+<!-- CALORIES TODAY -->
+<div class="card">
+<h3>Calories Burnt</h3>
+<div class="value">350 kcal</div>
+</div>
+
+<!-- STEPS -->
+<div class="card">
+<h3>Steps</h3>
+<div class="value">6400</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+if(!user){
+    alert("No profile found. Please fill profile first.");
+    window.location.href = "index.html";
+}
+
+document.getElementById("pName").innerText = user.name;
+
+// ---------- BMI ----------
+const heightM = user.height / 100;
+const bmi = (user.weight / (heightM * heightM)).toFixed(1);
+document.getElementById("bmi").innerText = bmi;
+
+let bmiStatus = "";
+if(bmi < 18.5) bmiStatus = "Underweight";
+else if(bmi < 25) bmiStatus = "Perfect Weight";
+else if(bmi < 30) bmiStatus = "Overweight";
+else bmiStatus = "Obese";
+
+document.getElementById("bmiStatus").innerText = bmiStatus;
+
+// ---------- DESIRED CALORIES ----------
+const idealBMI = 22;
+const idealWeight = idealBMI * (heightM * heightM);
+const weightDiff = idealWeight - user.weight;
+const totalCalories = Math.abs(weightDiff * 7700);
+const dailyCalories = Math.round(totalCalories / 30);
+
+let calorieText = "";
+let calorieStatus = "";
+
+if(weightDiff > 0){
+    calorieText = `+${dailyCalories} kcal/day`;
+    calorieStatus = "Calories to gain (weight increase)";
+}
+else if(weightDiff < 0){
+    calorieText = `-${dailyCalories} kcal/day`;
+    calorieStatus = "Calories to burn (weight loss)";
+}
+else{
+    calorieText = "Maintain";
+    calorieStatus = "You are at ideal weight";
+}
+
+document.getElementById("calories").innerText = calorieText;
+document.getElementById("calorieStatus").innerText = calorieStatus;
+</script>
+
+</body>
+</html>

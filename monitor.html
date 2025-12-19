@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Monitor Vitals</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    min-height:100vh;
+}
+
+/* ---------- HEADER ---------- */
+header{
+    background:rgba(0,0,0,0.5);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{
+    color:#00e5ff;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+/* ---------- CONTAINER ---------- */
+.container{
+    max-width:1100px;
+    margin:40px auto;
+    padding:20px;
+    text-align:center;
+}
+
+h2{
+    color:#00e5ff;
+    margin-bottom:25px;
+}
+
+/* ---------- BUTTON ---------- */
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#00e5ff;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:30px;
+}
+
+button:hover{
+    background:#00bcd4;
+}
+
+/* ---------- GRID ---------- */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+/* ---------- VITAL BOX ---------- */
+.vital-box{
+    background:rgba(0,0,0,0.45);
+    border:2px solid #00e5ff;
+    border-radius:16px;
+    aspect-ratio:1/1;
+    padding:20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    transition:0.3s;
+}
+
+.vital-box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 28px rgba(0,229,255,0.35);
+}
+
+.vital-title{
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.vital-value{
+    font-size:32px;
+    color:#00e5ff;
+    margin:8px 0;
+}
+
+.vital-unit{
+    font-size:14px;
+    opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Health Tracker</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monitor.html">Monitor Vitals</a>
+        <a href="#">Contact Us</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Live Health Monitoring</h2>
+
+    <button onclick="monitorVitals()">Click Here to Monitor</button>
+
+    <div class="grid" id="results"></div>
+</div>
+
+<script>
+function monitorVitals(){
+
+    document.getElementById("results").innerHTML = `
+        <div class="vital-box">
+            <div class="vital-title">SpO₂</div>
+            <div class="vital-value">98%</div>
+            <div class="vital-unit">Oxygen Saturation</div>
+        </div>
+
+        <div class="vital-box">
+            <div class="vital-title">Heart Rate</div>
+            <div class="vital-value">76</div>
+            <div class="vital-unit">BPM</div>
+        </div>
+
+        <div class="vital-box">
+            <div class="vital-title">Body Temperature</div>
+            <div class="vital-value">98.7</div>
+            <div class="vital-unit">°C</div>
+        </div>
+
+        <div class="vital-box">
+            <div class="vital-title">Blood Pressure</div>
+            <div class="vital-value">120 / 80</div>
+            <div class="vital-unit">mmHg</div>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

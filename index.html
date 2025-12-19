@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Home | Health Tracker</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    background:rgba(0,0,0,0.5);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{ color:#00e5ff; }
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+nav a:hover{ color:#00e5ff; }
+
+.container{
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    background:rgba(255,255,255,0.08);
+    border-radius:16px;
+}
+
+h2{
+    text-align:center;
+    color:#00e5ff;
+    margin-bottom:25px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#00e5ff;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{ background:#00bcd4; }
+
+.success{
+    text-align:center;
+    margin-top:15px;
+    color:#00e5ff;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Health Tracker</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monitor.html">Monitor Vitals</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>User Profile</h2>
+
+    <input id="name" type="text" placeholder="Name">
+    <input id="age" type="number" placeholder="Age">
+
+    <select id="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <input id="height" type="number" placeholder="Height (cm)">
+    <input id="weight" type="number" placeholder="Weight (kg)">
+
+    <button onclick="saveProfile()">Save Profile</button>
+
+    <div class="success" id="msg"></div>
+</div>
+
+<script>
+function saveProfile(){
+
+    const nameVal   = document.getElementById("name").value.trim();
+    const ageVal    = document.getElementById("age").value;
+    const genderVal = document.getElementById("gender").value;
+    const heightVal = document.getElementById("height").value;
+    const weightVal = document.getElementById("weight").value;
+
+    if(
+        nameVal === "" ||
+        ageVal === "" ||
+        genderVal === "" ||
+        heightVal === "" ||
+        weightVal === ""
+    ){
+        alert("Fill all fields!");
+        return;
+    }
+
+    const user = {
+        name: nameVal,
+        age: ageVal,
+        gender: genderVal,
+        height: heightVal,
+        weight: weightVal
+    };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    document.getElementById("msg").innerText = "Profile saved successfully ✔";
+}
+</script>
+
+</body>
+</html>
